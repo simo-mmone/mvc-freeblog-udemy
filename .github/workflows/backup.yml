@@ -9,14 +9,8 @@ jobs:
     steps:
       - name: show pg_dump version before update
         run: pg_dump -V
-      - name: update 1/4
-        run: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-      - name: update 2/4
-        run: wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null
-      - name: update 3/4
-        run: sudo apt update
-      - name: update 4/4
-        run: sudo apt install postgresql postgresql-client -y
+      - name: update
+        run: sudo apt-get install postgresql-client-15
       - name: show pg_dump version after update
         run: pg_dump -V
       - uses: actions/checkout@v2

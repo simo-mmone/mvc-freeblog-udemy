@@ -6,13 +6,12 @@ use App\DB\DBPDO;
 
 class PostController extends BaseController
 {
-    protected string $tplDir = 'app/Views/';
     protected Post $post;
-    protected $layout = 'layout/index.tpl.php';
 
     public function __construct(
         protected DBPDO $conn
     ) {
+        parent::__construct($conn);
         $this->post = new Post($this->conn);
     }    
 

@@ -1,0 +1,15 @@
+- name: pg-dump
+  uses: tj-actions/pg-dump@v2.5
+  run-name: ${{ github.actor }} is learning GitHub Actions
+  on: [workflow_dispatch]
+  jobs:
+    db-backup:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Postgres Dump Backup
+          uses: tj-actions/pg-dump@v2.3
+          with:
+            database_url: "postgres://postgres:hoduecaramelle@db.mmucqujjuxgcszwyrbil.supabase.co:5432/postgres"
+            path: "backups/backup.sql" 
+            options: "-O"

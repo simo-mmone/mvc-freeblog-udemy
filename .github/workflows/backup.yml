@@ -7,6 +7,12 @@ jobs:
   db-backup:
     runs-on: ubuntu-latest
     steps:
+      - name: show pg_dump version before update
+        run: pg_dump -V
+      - name: update
+        run: sudo apt update && sudo apt upgrade
+      - name: show pg_dump version after update
+        run: pg_dump -V
       - uses: actions/checkout@v2
       - name: Postgres Dump Backup
         uses: tj-actions/pg-dump@v2.3

@@ -1,8 +1,8 @@
 name: pg-dump
 on:
-  workflow_dispatch:
   schedule:
     - cron: '30 12 * * 1' #At 12:30 on Monday.
+  workflow_dispatch:
     branches:
       - main
 jobs:

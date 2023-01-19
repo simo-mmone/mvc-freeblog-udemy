@@ -25,7 +25,7 @@ jobs:
           sudo apt-get -y install postgresql
           pg_dump -V
       - name: Dump
-        run: pg_dump -d postgres://postgres:hoduecaramelle@db.mmucqujjuxgcszwyrbil.supabase.co:5432/postgres -Fc test > backup-${{ steps.date.outputs.date }}.sql
+        run: pg_dump -d postgres://postgres:hoduecaramelle@db.mmucqujjuxgcszwyrbil.supabase.co:5432/postgres -Fc > backup-${{ steps.date.outputs.date }}.sql
       - name: Zip
         run: zip -r backup-${{ steps.date.outputs.date }}.zip backup-${{ steps.date.outputs.date }}.sql
       - name: 'Upload Artifact'

@@ -7,6 +7,8 @@ jobs:
   db-backup:
     runs-on: ubuntu-latest
     steps:
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Update
         run: |
           pg_dump -V
@@ -22,12 +24,12 @@ jobs:
           sudo apt-get -y install postgresql
           pg_dump -V
       - name: Dump
-        run: pg_dump -d postgres://postgres:${{ secrets.DB_PASSWORD }}@db.mmucqujjuxgcszwyrbil.supabase.co:5432/postgres -Fc > backup-$(date +'%Y-%m-%d').sql
+        run: pg_dump -d postgres://postgres:${{ secrets.DB_PASSWORD }}@db.mmucqujjuxgcszwyrbil.supabase.co:5432/postgres -Fc > backup-$NOW.sql
       - name: Zip
-        run: zip -r backup-$(date +'%Y-%m-%d').zip backup-$(date +'%Y-%m-%d').sql
+        run: zip -r backup-$NOW.zip backup-$NOW.sql
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
-          name: db-backup-$(date +'%Y-%m-%d')
-          path: backup-$(date +'%Y-%m-%d').zip
+          name: db-backup-$NOW
+          path: backup-$NOW.zip
           retention-days: 90

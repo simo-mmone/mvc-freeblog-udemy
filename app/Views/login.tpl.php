@@ -1,7 +1,8 @@
 <div class="row d-flex justify-content-center g-3">
     <div class="col-md-9">
         <h1>Sign in</h1>
-        <form action="/auth/signin" method="POST">
+        <form action="/auth/login" method="POST">
+            <input type="hidden" name="_csrf" value="<?= $token ?>">
             <div class="form-group mb-3">
                 <label for="exampleInputEmail1">Email address</label>
                 <input required type="email" value="" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">

@@ -9,7 +9,7 @@ use App\Controllers\BaseController;
 
 chdir(dirname(__DIR__));
 
-require_once 'core/bootstrap.php';
+require_once __DIR__.'/../core/bootstrap.php';
 $data = require 'config/database.php';
 $appConfig = require 'config/app.config.php';
 

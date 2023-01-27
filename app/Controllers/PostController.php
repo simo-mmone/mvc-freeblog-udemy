@@ -15,6 +15,12 @@ class PostController extends BaseController
         $this->post = new Post($this->conn);
     }    
 
+    private function redirectInNotLoggedIn()
+    {
+        if(!isUserLoggedIn())
+            $this->redirect('/auth/login');
+    }
+
     public function show( $postid ): void
     {
         $post = $this->post->findByPostId($postid);
@@ -25,17 +31,20 @@ class PostController extends BaseController
 
     public function edit( $postid ): void
     {
+        $this->redirectInNotLoggedIn();
         $post = $this->post->findByPostId($postid);
         $this->content = view('editpost', ['post' => $post], $this->tplDir);
     }
 
     public function create(): void
     {
+        $this->redirectInNotLoggedIn();
         $this->content = view('newpost');
     }
 
     public function save(?int $postid = null): void
     {
+        $this->redirectInNotLoggedIn();
         $post = [
             'title' => $_POST['title'] ?? '',
             'email' => $_POST['email'] ?? '',
@@ -53,6 +62,7 @@ class PostController extends BaseController
 
     public function saveComment(int $postid): void
     {
+        $this->redirectInNotLoggedIn();
         $comment = [
             'email' => $_POST['email'] ?? '',
             'text' => $_POST['text'] ?? ''
@@ -66,6 +76,7 @@ class PostController extends BaseController
 
     public function delete(int $postid): void
     {        
+        $this->redirectInNotLoggedIn();
         $this->post->delete($postid);
 
         header('Location: /');

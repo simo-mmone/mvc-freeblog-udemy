@@ -16,13 +16,27 @@
                 <div class="navbar-nav">
                     <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="/posts">Posts</a>
+                    <?php if (isUserLoggedIn()) : ?>
                     <a class="nav-link" href="/posts/create">New post</a>
+                    <?php endif; ?>
                     <!-- <a class="nav-link disabled">Disabled</a> -->
                 </div>
             </div>
             <div class="navbar-nav">
+                <?php
+                    if (!isUserLoggedIn()):
+                ?>
                 <a class="nav-link" href="/auth/login">Login</a>
                 <a class="nav-link" href="/auth/signup">Signup</a>
+                <?php
+                    else:
+                ?>
+                <!-- Nome utente -->
+                <div class="nav-link disabled"><?= getUserName() ?></div>
+                <a class="nav-link" href="/auth/logout">Logout</a>
+                <?php
+                    endif;
+                ?>
             </div>
         </div>
         

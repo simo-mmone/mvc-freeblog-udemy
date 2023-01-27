@@ -43,3 +43,15 @@ function time_elapsed_string($ptime)
         }
     }
 }
+
+function isUserLoggedIn(): bool
+{
+    // die(var_dump($_SESSION));
+    return isset($_SESSION['user']) ?? false;
+}
+
+function getUserName(): string
+{
+    // die(var_dump($_SESSION));
+    return $_SESSION['user']->username ?? '';
+}

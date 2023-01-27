@@ -27,23 +27,30 @@ class LoginController extends BaseController
 
     public function login()
     {
-        var_dump($_POST);
+        // var_dump($_POST);
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $token = $_POST['_csrf'] ?? '';
         $result = $this->verifyLogin($email, $password, $token);
         // die(var_dump($result));
         if ($result['success']) {
+            // die(var_dump($_SESSION));
             session_regenerate_id();
             $_SESSION['logged_in'] = true;
-            unset($result['user']['password']);
-            $_SESSION['userData'] = $result['user'];
+            unset($result['user']->password);
+            $_SESSION['user'] = $result['user'];
             header('Location: /');
             exit;
         } else {
             $_SESSION['message'] = $result['message'];
             header('Location: /auth/login');
         }
+    }
+
+    public function logout()
+    {
+        $_SESSION = [];
+        header('Location: /');
     }
 
     public function display(): void
@@ -86,6 +93,7 @@ class LoginController extends BaseController
             $result['message'] = 'Invalid password';
             return $result;
         }
+        $result['user'] = $resEmail[0];
         return $result;
     }
 }

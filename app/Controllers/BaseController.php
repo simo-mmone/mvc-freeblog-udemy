@@ -31,4 +31,9 @@ abstract class BaseController {
     public function getTplDir(): string{
         return $this->tplDir;
     }
+
+    public function redirect($where): void {
+        header("Location: $where");
+        die();
+    }
 }

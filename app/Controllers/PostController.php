@@ -2,14 +2,14 @@
 namespace App\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
-use App\DB\DBPDO;
+use App\DB\DbPdo;
 
 class PostController extends BaseController
 {
     protected Post $post;
 
     public function __construct(
-        protected DBPDO $conn
+        protected DbPdo $conn
     ) {
         parent::__construct($conn);
         $this->post = new Post($this->conn);
@@ -47,8 +47,9 @@ class PostController extends BaseController
         $this->redirectInNotLoggedIn();
         $post = [
             'title' => $_POST['title'] ?? '',
-            'email' => $_POST['email'] ?? '',
-            'text' => $_POST['text'] ?? ''
+            'email' => $_SESSION['user']->email ?? '',
+            'text' => $_POST['text'] ?? '',
+            'user_id' => $_SESSION['user']->id ?? ''
         ];
 
         if(!$postid){
@@ -64,7 +65,7 @@ class PostController extends BaseController
     {
         $this->redirectInNotLoggedIn();
         $comment = [
-            'email' => $_POST['email'] ?? '',
+            'email' => $_SESSION['user']->email ?? '',
             'text' => $_POST['text'] ?? ''
         ];
 

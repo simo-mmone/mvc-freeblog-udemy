@@ -19,4 +19,9 @@
             endforeach;
         ?>
     </div>
+
+    <br><br><br>
+    <p>
+        Possono essere consultati solo gli ultimi 10 post.
+    </p>
 </article>

@@ -5,31 +5,31 @@
             echo '<p>' . $post->message . '</p>';
         ?>
     </article>
-    <div class="row d-flex justify=content-center g-3">
-        <div class="col-md-6">
-            <form action="/posts/<?= $post->id ?>/edit" method="GET">
-                <button class="btn btn-success"> EDIT </button>
-            </form>            
-        </div>
-        <div class="col-md-6">
-            <form action="/posts/<?= $post->id ?>/delete" method="POST">
-                <button class="btn btn-danger"> DELETE </button>
-            </form>    
-        </div>
-    </div>
-    <div class="row d-flex justify=content-center g-3">
-        <form action="/posts/<?= $post->id ?>/comments" method="POST">
-            <div class="form-group mb-3">
-                <label for="exampleInputEmail1">Email address</label>
-                <input required type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <?php if (isUserLoggedIn()): ?>
+        <?php if ($post->user_id == $_SESSION['user']->id): ?>
+            <div class="row d-flex justify=content-center g-3">
+                <div class="col-md-6">
+                    <form action="/posts/<?= $post->id ?>/edit" method="GET">
+                        <button class="btn btn-success"> EDIT </button>
+                    </form>            
+                </div>
+                <div class="col-md-6">
+                    <form action="/posts/<?= $post->id ?>/delete" method="POST">
+                        <button class="btn btn-danger"> DELETE </button>
+                    </form>    
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label for="exampleFormControlTextarea1">Post content</label>
-                <textarea required class="form-control" name="text" id="text" rows="3" placeholder="..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary"><small>Add comment</small></button>
-        </form>
-    </div>
+        <?php endif; ?>
+        <div class="row d-flex justify=content-center g-3">
+            <form action="/posts/<?= $post->id ?>/comments" method="POST">
+                <div class="form-group mb-3">
+                    <label for="exampleFormControlTextarea1">Post content</label>
+                    <textarea required class="form-control" name="text" id="text" rows="3" placeholder="..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"><small>Add comment</small></button>
+            </form>
+        </div>
+    <?php endif; ?>
     <div class="row d-flex justify=content-center g-3">
         <?php 
             foreach ($comments as $comment):
@@ -47,4 +47,8 @@
             endforeach;
         ?>
     </div>
+    <br><br><br>
+    <p>
+        Sono visualizzati solo gli ultimi 10 commenti.
+    </p>
 </div>

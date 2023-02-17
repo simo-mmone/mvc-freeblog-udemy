@@ -2,7 +2,7 @@
 
 namespace App\DB;
 
-class DBPDO{
+class DbPdo{
     private $url;
     private $key;
     protected static $instance;

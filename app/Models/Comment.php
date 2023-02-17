@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\DB\DBPDO;
+use App\DB\DbPdo;
 
 class Comment
 {
@@ -9,14 +9,14 @@ class Comment
     public string $email = "";
     public string $created_at = "";
     
-    public function __construct(protected DBPDO $conn)
+    public function __construct(protected DbPdo $conn)
     {
     }
 
     public function all(int $postid): array
     {
         $result = [];
-        $stm = $this->conn->query('postscomments?order=created_at.desc&select=*&post_id=eq.'.$postid);
+        $stm = $this->conn->query('postscomments?order=created_at.desc&select=*&limit=10&post_id=eq.'.$postid);
         
         if ($stm && count($stm) > 0) {
             $result = $stm;
@@ -32,9 +32,10 @@ class Comment
         $result = $this->conn->query(
             $stm,
             array(
-                'email' => $post['email'],
+                'email' => $_SESSION['user']->email ?? '',
                 'comment' => $post['text'],
-                'post_id' => $postid
+                'post_id' => $postid,
+                'user_id' => $_SESSION['user']->id ?? ''
             )
         );
         return true;

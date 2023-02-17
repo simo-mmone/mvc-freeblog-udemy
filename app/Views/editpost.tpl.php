@@ -3,10 +3,6 @@
         <h1>Edit post</h1>
         <form action="/posts/<?=$post->id?>" method="POST">
             <div class="form-group mb-3">
-                <label for="exampleInputEmail1">Email address</label>
-                <input required type="email" value="<?=$post->email?>" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group mb-3">
                 <label for="exampleInputEmail1">Title</label>
                 <input required type="text" value="<?=$post->title?>" class="form-control" name="title" id="title" aria-describedby="titleHelp" placeholder="Enter title">
             </div>

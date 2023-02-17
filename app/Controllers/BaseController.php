@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-use App\DB\DBPDO;
+use App\DB\DbPdo;
 
 abstract class BaseController {
 
@@ -10,7 +10,7 @@ abstract class BaseController {
     protected string $tplDir = 'app/Views/';
 
     public function __construct(
-        protected DBPDO $conn
+        protected DbPdo $conn
     ) {
     } 
 

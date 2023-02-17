@@ -55,3 +55,8 @@ function getUserName(): string
     // die(var_dump($_SESSION));
     return $_SESSION['user']->username ?? '';
 }
+
+function dd($data){
+    var_dump($data);
+    die();
+}

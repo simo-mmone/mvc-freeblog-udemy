@@ -3,8 +3,7 @@
 // die(phpinfo());
 //$conn = new PDO('postgres:host=db.mmucqujjuxgcszwyrbil.supabase.co;dbname=postgres', 'postgres', 'Ciabatta123!');
 
-use App\DB\DBPDO;
-use App\Core\Router;
+use App\DB\DbPdo;
 use App\Controllers\BaseController;
 
 chdir(dirname(__DIR__));
@@ -17,7 +16,7 @@ $router = new Router($appConfig['routes']);
 $arrController = $router->dispatch();
 $controllerParams = $arrController[2] ?? [];
 
-$conn = DBPDO::getInstance($data);
+$conn = DbPdo::getInstance($data);
 $controllerClass = $arrController[0];
 $method = $arrController[1];
 $controller = new $controllerClass(

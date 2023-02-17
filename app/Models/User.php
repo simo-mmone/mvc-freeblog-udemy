@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Models;
-use App\DB\DBPDO;
+use App\DB\DbPdo;
 
 class User {
 
-    public function __construct(protected DBPDO $conn)
+    public function __construct(protected DbPdo $conn)
     {
     }
 
@@ -19,6 +19,13 @@ class User {
             $result = [];
         }
         return $result;
+    }
+
+    public function saveUser(array $data)
+    {
+        $stm = $this->conn->query('users', $data);
+
+        return $stm;
     }
 
 

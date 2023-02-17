@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Models;
-use App\DB\DBPDO;
+use App\DB\DbPdo;
 
 class Post
 {
-    public function __construct(protected DBPDO $conn)
+    public function __construct(protected DbPdo $conn)
     {
     }
 
     public function all(): array
     {
         $result = [];
-        $stm = $this->conn->query('posts?order=created_at.desc&select=*');
+        $stm = $this->conn->query('posts?order=created_at.desc&select=*&limit=10');
         
         if ($stm && count($stm) > 0) {
             $result = $stm;
@@ -43,6 +43,7 @@ class Post
                 'title' => $post['title'],
                 'email' => $post['email'],
                 'message' => $post['text'],
+                'user_id' => $post['user_id']
             )
         );
         return true;
